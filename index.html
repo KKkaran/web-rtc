@@ -21,6 +21,7 @@
         socket.on("event1", function (data) {
                 console.log(data.counter)
             })
+        socket.emit("event2", { counter: "from client side" })
     </script>
 
 </body>

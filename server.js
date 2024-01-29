@@ -26,6 +26,10 @@ io.on("connection", function (socket) {
         socket.emit("event1", {counter: x})
     }, 3000);
 
+    socket.on("event2", function (data) {
+            console.log(data.counter)
+    })
+    
     socket.on("disconnect", function () {
         console.log("A user disconnected", --x)
     })
