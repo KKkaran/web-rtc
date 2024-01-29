@@ -13,9 +13,18 @@ app.get("/", (req, res) => {
     return res.sendFile(fileName, options)
 })
 
+app.get("/admin", (req, res) => {
+    return res.send("Karan SOdhi")
+})
+
 //socket io logic goes below
 io.on("connection", function (socket) {
     console.log("A user connected: ", ++x);
+
+    setTimeout(() => {
+        socket.send("Sent message from the server.")
+        socket.emit("event1", {counter: x})
+    }, 3000);
 
     socket.on("disconnect", function () {
         console.log("A user disconnected", --x)
