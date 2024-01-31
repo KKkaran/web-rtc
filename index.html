@@ -11,17 +11,31 @@
 <body>
     
     <h2>Hello World!!</h2>
-
+    <h1 id="welcome">Welcome new user</h1>
+    <input type="text" name="msg" id="msg">
+    <button onclick="sendMessage()">Send!</button>
+    <h3 >People Online: <span id="users"></span></h3>
     <script>
-        console.log("client")
         var socket = io();
-        socket.on("message", function(data){
-            console.log(data)
+
+         socket.on("newUser", function(count){
+            console.log("users:", count)
+            document.getElementById("users").innerHTML = count
         })
-        socket.on("event1", function (data) {
-                console.log(data.counter)
-            })
-        socket.emit("event2", { counter: "from client side" })
+
+        // socket.on("message", function(data){
+        //     console.log(data)
+        // })
+        // socket.on("event1", function (data) {
+        //         console.log(data.counter)
+        //     })
+        // socket.emit("event2", { counter: "from client side" })
+
+        // function sendMessage(){
+        //     console.log("sending")
+        //     let msg = document.getElementById("msg");
+        //     socket.emit("msgSent", msg.value);
+        // }
     </script>
 
 </body>

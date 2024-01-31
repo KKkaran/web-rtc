@@ -2,7 +2,6 @@ const app = require("express")();
 const http = require('http').Server(app);
 const path = require("path");
 var io = require("socket.io")(http);
-let x = 0;
 
 app.get("/", (req, res) => {
 
@@ -16,23 +15,55 @@ app.get("/", (req, res) => {
 app.get("/admin", (req, res) => {
     return res.send("Karan SOdhi")
 })
-
+var users = 0;
 //socket io logic goes below
 io.on("connection", function (socket) {
-    console.log("A user connected: ", ++x);
-
-    setTimeout(() => {
-        socket.send("Sent message from the server.")
-        socket.emit("event1", {counter: x})
-    }, 3000);
-
-    socket.on("event2", function (data) {
-            console.log(data.counter)
+    console.log("User Joined.")
+    
+    //io.sockets.emit("userUpdate", ++users);
+    socket.emit("newUser", "Hi Welcome bro")
+    socket.broadcast.emit("newUser", ++users)
+    socket.on("disconnect", function () {
+        console.log("user disconnected.")
+        socket.broadcast.emit("newUser", --users);
     })
     
-    socket.on("disconnect", function () {
-        console.log("A user disconnected", --x)
-    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // console.log("A user connected: ", ++x);
+    
+    // setTimeout(() => {
+    //     socket.send("Sent message from the server.")
+    //     socket.emit("event1", {counter: x})
+    // }, 3000);
+    
+    // socket.on("event2", function (data) {
+    //         console.log(data.counter)
+    // })
+    
+    // socket.on("msgSent", (text) => {
+    //     console.log(text)
+    // })
 })
 
 
